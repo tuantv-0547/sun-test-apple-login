@@ -6,7 +6,7 @@ class TopController < ApplicationController
     @state = params[:state]
     @code = params[:code]
     @id_token = params[:id_token]
-    @user = parmas[:user]
+    @user = params[:user]
 
     # TODO: Validation
 
