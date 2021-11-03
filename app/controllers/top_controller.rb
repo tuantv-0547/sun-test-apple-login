@@ -2,7 +2,7 @@ class TopController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :redirect
 
   def index
-    @nonce = SecureRandom.hex
+    @nonce = params[:nonce]
   end
 
   def redirect

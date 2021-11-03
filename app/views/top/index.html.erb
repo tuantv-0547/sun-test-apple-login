@@ -1,15 +1,22 @@
-<script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
+<% if @nonce.blank? %>
+  <%= form_with(url: "/", local: true,  method: :get) do |form| %>
+    <%= form.label :nonce, "Nonce" %>
+    <%= form.text_field :nonce %>
+    <%= form.submit "Submit" %>
+  <% end %>
+<% else %>
+  <h3>Nonce: <%= @nonce %></h3>
+  <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
 
-<h3>Nonce: <%= @nonce %></h3>
+  <div id="appleid-signin" class="signin-button" data-color="black" data-border="true" data-type="sign in"></div>
 
-<div id="appleid-signin" class="signin-button" data-color="black" data-border="true" data-type="sign in"></div>
-
-<script type="text/javascript">
-    AppleID.auth.init({
-        clientId : 'com.tuan.apple.service',
-        scope : 'name email',
-        redirectURI : 'https://sun-test-apple-login.herokuapp.com/redirect',
-        nonce : "<%= @nonce %>",
-        usePopup : false //or false defaults to false
-    });
-</script>
+  <script type="text/javascript">
+      AppleID.auth.init({
+          clientId : 'com.tuan.apple.service',
+          scope : 'name email',
+          redirectURI : 'https://sun-test-apple-login.herokuapp.com/redirect',
+          nonce : "<%= @nonce %>",
+          usePopup : false //or false defaults to false
+      });
+  </script>
+<% end %>
